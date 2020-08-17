@@ -12,6 +12,7 @@ import Map from "./Component/Map";
 import Table from "./Component/Table";
 import { sortData } from "./util";
 import LineGraph from "./Component/LineGraph";
+import "leaflet/dist/leaflet.css";
 
 /* API call to this site
   https://disease.sh/v3/covid-19/countries */
@@ -21,6 +22,12 @@ function App() {
   const [country, setCountry] = useState("worldwide");
   const [countryInfo, setCountryInfo] = useState({});
   const [tableData, setTableData] = useState([]);
+
+  //To set up the map, must specify these values
+  const [mapCenter, setMapCenter] = useState({ lat: 34.80746, lng: -40.4796 });
+  const [mapZoom, setMapZoom] = useState(3);
+
+  const [mapCountries, setMapCountries] = useState([]);
 
   //const [countries, setCountries] = useState(["USA", "UK", "CHINA"]);
 
@@ -52,6 +59,8 @@ function App() {
           //Pass the sorted list into the table data
           setTableData(sortedData);
           setCountries(countries);
+          //Grab every piece of data and pass it to Map component
+          setMapCountries(data);
         });
     };
     getCountriesData();
@@ -86,6 +95,9 @@ function App() {
         setCountry(countryCode);
         //update the country information
         setCountryInfo(data);
+        //When the user select a drop down country, it will adjust the map
+        setMapCenter([data.countryInfo.lat, data.countryInfo.long]);
+        setMapZoom(4);
         console.log("country update", countryCode);
         console.log("country info:", data);
       });
@@ -133,8 +145,8 @@ function App() {
           />
         </div>
 
-        {/* Map */}
-        <Map />
+        {/* Map must pass in the states in here */}
+        <Map countries={mapCountries} center={mapCenter} zoom={mapZoom} />
       </div>
 
       <Card className="app__right">
