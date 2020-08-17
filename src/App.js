@@ -9,6 +9,9 @@ import {
 } from "@material-ui/core";
 import InfoBox from "./Component/InfoBox";
 import Map from "./Component/Map";
+import Table from "./Component/Table";
+import { sortData } from "./util";
+//import LineGraph from "./Component/LineGraph";
 
 /* API call to this site
   https://disease.sh/v3/covid-19/countries */
@@ -17,8 +20,11 @@ function App() {
   const [countries, setCountries] = useState([]);
   const [country, setCountry] = useState("worldwide");
   const [countryInfo, setCountryInfo] = useState({});
+  const [tableData, setTableData] = useState([]);
   //const [countries, setCountries] = useState(["USA", "UK", "CHINA"]);
 
+  //The first use effect is for worldwide view
+  //When the user step onto the website, it will shows the world wide information on covid cases
   useEffect(() => {
     fetch("https://disease.sh/v3/covid-19/all")
       .then((response) => response.json())
@@ -27,6 +33,7 @@ function App() {
       });
   }, []);
 
+  //This use effect will show info depend on which country is selected by the user on the dropdown menu
   useEffect(() => {
     // The code in here will run once when the component loads but not again after
     //async -> send request to the server, wait for it, and do something with it
@@ -39,6 +46,10 @@ function App() {
             name: country.country,
             value: country.countryInfo.iso2,
           }));
+          //Create a variable that calls the helper function and pass in the list obtained from API
+          const sortedData = sortData(data);
+          //Pass the sorted list into the table data
+          setTableData(sortedData);
           setCountries(countries);
         });
     };
@@ -46,6 +57,7 @@ function App() {
   }, []);
 
   //onChange event function that takes in whatever drop down menu selector is selected
+  //This function fetch the data from API base on which ever country is selected from the drop down menu
   const onCountryChange = async (event) => {
     const countryCode = event.target.value;
     console.log("selected value: ", countryCode);
@@ -128,8 +140,10 @@ function App() {
         <CardContent>
           {/* Table */}
           <h3>Live cases by country</h3>
+          <Table countries={tableData} />
           {/* Graph */}
           <h3>Worldwide cases</h3>
+          {/**<LineGraph /> */}
         </CardContent>
       </Card>
     </div>

@@ -22,15 +22,11 @@ body {
 .app__stats {
   display: flex;
   justify-content: space-between;
-  width: 50%;
+  width: 70%;
 }
 
 .app__left {
   flex: 0.9;
-}
-
-.app__right {
-  flex: 0.1;
 }
 
 @media (max-width: 990px) {
