@@ -21,6 +21,7 @@ function App() {
   const [country, setCountry] = useState("worldwide");
   const [countryInfo, setCountryInfo] = useState({});
   const [tableData, setTableData] = useState([]);
+
   //const [countries, setCountries] = useState(["USA", "UK", "CHINA"]);
 
   //The first use effect is for worldwide view

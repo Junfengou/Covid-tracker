@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Line } from "react-chartjs-2";
 import numeral from "numeral";
+import "./LineGraph.css";
 
 //https://disease.sh/v3/covid-19/historical/all?lastdays=120
 
@@ -87,7 +88,7 @@ function LineGraph({ casesType = "cases" }) {
   }, [casesType]);
 
   return (
-    <div>
+    <div className="graph">
       <h6>LineGraph</h6>
       {/*Check if data exist
       if it's not checked, it will be undefined */}
