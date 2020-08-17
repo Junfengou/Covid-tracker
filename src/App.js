@@ -11,7 +11,7 @@ import InfoBox from "./Component/InfoBox";
 import Map from "./Component/Map";
 import Table from "./Component/Table";
 import { sortData } from "./util";
-//import LineGraph from "./Component/LineGraph";
+import LineGraph from "./Component/LineGraph";
 
 /* API call to this site
   https://disease.sh/v3/covid-19/countries */
@@ -143,7 +143,7 @@ function App() {
           <Table countries={tableData} />
           {/* Graph */}
           <h3>Worldwide cases</h3>
-          {/**<LineGraph /> */}
+          <LineGraph />
         </CardContent>
       </Card>
     </div>
