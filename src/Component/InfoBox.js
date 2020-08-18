@@ -1,26 +1,53 @@
 import React from "react";
 import { Card, CardContent, Typography } from "@material-ui/core";
+import "./InfoBox.css";
 
-function InfoBox({ title, cases, total }) {
+function InfoBox({
+  title,
+  cases,
+  wordBlue,
+  active,
+  isOrange,
+  isRed,
+  total,
+  wordRed,
+  wordOrange,
+  ...props
+}) {
   return (
-    <div className="infoBox">
-      <Card>
-        <CardContent>
-          {/* Title */}
-          <Typography className="infoBox__title" color="textSecondary">
-            {title} <h6>(today, total)</h6>
-          </Typography>
+    <Card
+      className={`infoBox ${active && "infoBox--isBlue"} ${
+        isRed && "infoBox--isRed"
+      } ${isOrange && "infoBox--isOrange"} `}
+      onClick={props.onClick}
+    >
+      <CardContent>
+        {/* Title */}
+        <Typography
+          className={`infoBox__title ${wordBlue && "infoBox--letterBlue"}
+          ${wordRed && "infoBox--letterRed"}
+          ${wordOrange && "infoBox--letterOrange"}`}
+          color="textSecondary"
+        >
+          <p>{title}</p>
+          <h6>(today, total)</h6>
+        </Typography>
 
-          {/* # of cases */}
-          <h2 className="infoBox__cases">{cases}</h2>
+        {/* # of cases  className="infoBox__cases"*/}
+        <h2
+          className={`infoBox__cases ${wordBlue && "infoBox--letterBlue"} ${
+            wordOrange && "infoBox--letterOrange"
+          }`}
+        >
+          <p>{cases}</p>
+        </h2>
 
-          {/* Total cases */}
-          <Typography className="infoBox__total" color="textSecondary">
-            <h5>{total} total</h5>
-          </Typography>
-        </CardContent>
-      </Card>
-    </div>
+        {/* Total cases  */}
+        <Typography className="infoBox__total" color="textSecondary">
+          <h5>{total} total</h5>
+        </Typography>
+      </CardContent>
+    </Card>
   );
 }
 

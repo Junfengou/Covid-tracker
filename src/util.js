@@ -4,15 +4,15 @@ import numeral from "numeral";
 
 const casesTypeColors = {
   cases: {
-    hex: "#CC1034",
+    hex: "#CC1034", //setting the circle color
     multiplier: 800, //magic number
   },
   recovered: {
-    hex: "#7dd71d",
+    hex: "#3cd0fa",
     multiplier: 1200,
   },
   deaths: {
-    hex: "#fb4443",
+    hex: "#f19d1f",
     multiplier: 2000,
   },
 };
@@ -57,7 +57,30 @@ export const showDataOnMap = (data, casesType = "cases") =>
       }
     >
       <Popup>
-        <h3>Popup</h3>
+        <div className="info-container">
+          <div
+            className="info-flag"
+            style={{ backgroundImage: `url(${country.countryInfo.flag})` }}
+          ></div>
+          <div className="info-name">{country.country}</div>
+          <div className="info-confirmed">
+            Cases: {numeral(country.cases).format("0,0")}
+          </div>
+          <div className="info-recovered">
+            Recovered: {numeral(country.recovered).format("0,0")}
+          </div>
+          <div className="info-deaths">
+            Deaths: {numeral(country.deaths).format("0,0")}
+          </div>
+        </div>
       </Popup>
     </Circle>
   ));
+
+//A helper function that modify the way number display in the info box
+export const prettyPrintStat = (stat) =>
+  stat ? `+${numeral(stat).format("0,0")}` : "+0";
+
+export const prettyNumStats = (stat) =>
+  stat ? `${numeral(stat).format("0,0")}` : "+0";
+//numeral(stat).format("0,0");
